@@ -354,7 +354,7 @@ Property Value Examples</h3>
 	</div>
 
 <h2 id="combining-values">
-Combining Values: Interpolation, Addition, and Accumulation</h2>
+Combining Values: Interpolation, Addition, Accumulation, and Subtraction</h2>
 
 	Some procedures, for example
 	<a href="https://www.w3.org/TR/css-transitions/">transitions</a>
@@ -432,6 +432,25 @@ Combining Values: Interpolation, Addition, and Accumulation</h2>
 				when <a>added</a> together would produce ''blur(2) blur(3)'',
 				but when <a>accumulated</a> would produce ''blur(5)''.
 			</div>
+
+		<dt><dfn id="subtraction" lt="value subtraction | subtraction procedure" local-lt="subtract | subtraction">subtraction</dfn>
+		<dd>
+			Given two property values
+			<var>V<sub>a</sub></var> and <var>V<sub>B</sub></var>,
+			returns the difference of the two properties,
+			<var>V</var><sub>result</sub>.
+			<var>V<sub>a</sub></var> represents
+			the first term of the operation and
+			<var>V<sub>B</sub></var> represents
+			the second. This is performed as <a>accumulation</a>
+			of the first term with the negated value of the second.
+
+			<div class="note">
+				Note: Subtraction is used exclusively to produce
+				<a lt="composite operation relative">relative</a>
+				<a lt="effect value">effect values</a>.
+			</div>
+
 	</dl>
 
 	These operations are only defined on <a>computed values</a>.

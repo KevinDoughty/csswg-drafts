@@ -3185,7 +3185,7 @@ in each property's property definition table:
   <dt><dfn>by computed value</dfn>
   <dd>
     Corresponding individual components of the <a>computed values</a>
-    are combined (interpolated, added, or accumulated)
+    are combined (interpolated, added, accumulated, or subtracted)
     using the indicated procedure for that value type
     (see [[css-values-4#combining-values]]).
     If the number of components or the types of corresponding components
@@ -3544,7 +3544,11 @@ given <var>iteration progress</var>, <var ignore=''>current iteration</var> and
             <a>keyframe effect</a>.
         1.  Let <var>value to combine</var> be the property value of
             <var>target property</var> specified on
-            <var>keyframe</var>.
+            <var>keyframe</var>, unless the <var>composite operation to use</var>
+            is <a lt="composite operation relative">relative</a> in
+            which it is the same property value <a
+            lt="value subtraction">subtracted</a>
+            from the last <a>keyframe</a> in the <a>keyframe effect</a> .
         1.  Replace the property value of <var>target property</var>
             on <var>keyframe</var> with the result of combining
             <var>underlying value</var> (<var>V</var><sub>a</sub>) and
@@ -3792,7 +3796,7 @@ The specific operation used to combine an <a>effect value</a> with an
 <dfn>composite operation</dfn> of the <a>keyframe effect</a> that
 produced the <a>effect value</a>.
 
-This specification defines three <a>composite operations</a> as
+This specification defines four <a>composite operations</a> as
 follows:
 
 :   <dfn lt="composite operation replace">replace</dfn>
@@ -3814,6 +3818,8 @@ follows:
     <a lt="value accumulation">accumulation operation</a> is
     defined such that it is not commutative, the order of the operands
     is <a>underlying value</a> followed by <a>effect value</a>.
+:   <dfn lt="composite operation relative">relative</dfn></dt>
+::  The <a>effect value</a> is composited identically to <a>accumulate</a>.
 
 ### Applying the composited result ### {#applying-the-composited-result}
 
@@ -5804,7 +5810,7 @@ composition behavior are represented by the
 <dfn>CompositeOperation</dfn> enumeration.
 
 <pre class='idl'>
-enum CompositeOperation { "replace", "add", "accumulate" };
+enum CompositeOperation { "replace", "add", "accumulate", "relative" };
 </pre>
 
 :   <dfn enum-value for="CompositeOperation,CompositeOperationOrAuto">replace</dfn>
@@ -5830,12 +5836,21 @@ enum CompositeOperation { "replace", "add", "accumulate" };
     lt="value accumulation">accumulated</a> on to the
     <a>underlying value</a>.
 
+:   <dfn enum-value for="CompositeOperation,CompositeOperationOrAuto">relative</dfn>
+::  Corresponds to the <a
+    lt="composite operation relative">relative</a>
+    <a>composite operation</a> value such that
+    the <a>effect value</a> is calculated as described
+    in [[#the-effect-value-of-a-keyframe-animation-effect]]
+    and <a lt="value accumulation">accumulated</a> on to the
+    <a>underlying value</a>.
+
 The possible values of a [=keyframe=]'s composition behavior share the same
 values as the {{CompositeOperation}} enumeration along with the additional
 {{CompositeOperationOrAuto/auto}} value.
 
 <pre class='idl'>
-enum CompositeOperationOrAuto { "replace", "add", "accumulate", "auto" };
+enum CompositeOperationOrAuto { "replace", "add", "accumulate", "relative", "auto" };
 </pre>
 
 :   <dfn enum-value for=CompositeOperationOrAuto>auto</dfn>
